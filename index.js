@@ -1,18 +1,38 @@
 const express = require('express');
-const { config } = require('process');
-
-const app = express();
+const morgan = require('morgan');
 require('dotenv').config();
+require('./helpers/db.connection');
+const createErrors = require('http-errors');
+
+const AuthRoutes = require('./routes/auth.routes')
 const PORT = process.env.PORT || 3000;
 
-app.get('/',(req,res)=>{
-    res.send('Hello');
+const app = express();
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
+
+app.get('/',async (req,res,next)=>{
+    res.send('Hello from app');
 })
-app.get('/home',(req,res)=>{
-    res.send('Hello, this is homepage');
+
+app.use('/auth',AuthRoutes);
+
+app.use(async (req,res,next)=>{
+    // const error = new Error("Not found")
+    // error.status = 400
+    // next(error)
+    next(createErrors.NotFound("Page not found"));
 })
-app.get('*',(req,res)=>{
-    res.send('Page not found');
+
+app.use((err,req,res,next)=>{
+    res.status(err.status || 500)
+    res.send({
+        error:{
+            status: err.status || 500,
+            message: err.message,
+        }
+    })
 })
 
 app.listen(PORT,()=>{

@@ -1,0 +1,29 @@
+@Base_url = http://localhost:3600
+@Base_url_auth = http://localhost:3600/auth
+
+
+### Home Route
+GET {{Base_url}}
+
+### login route
+POST {{Base_url_auth}}/login
+Content-Type: application/json
+
+{
+    "email":"email+one@email.com",
+    "password":"password+one"
+}
+
+### register route
+POST {{Base_url_auth}}/register
+Content-Type: application/json
+
+{    
+    "email":"email+one@email.com",
+    "password":"password+one"
+}
+### refresh toke route
+POST {{Base_url_auth}}/refresh-token
+
+### logout route
+DELETE {{Base_url_auth}}/logout
