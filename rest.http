@@ -4,14 +4,15 @@
 
 ### Home Route
 GET {{Base_url}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWF6aW0iLCJpYXQiOjE2NzA1Nzg2OTQsImV4cCI6MTY3MDU3OTI5NCwiYXVkIjoiNjM5MmNlOTMyNjNiYjE5NjMyY2RhZTNkIiwiaXNzIjoiaGVscC5jb20ifQ.iz5KUEPslxpSlb5kawr6EWyC2hIHgdhm6w8ZMUDm7MY
 
 ### login route
 POST {{Base_url_auth}}/login
 Content-Type: application/json
 
-{
-    "email":"email+one@email.com",
-    "password":"password+one"
+{    
+    "email":"emaill@gmail.com", 
+    "password":"passss"
 }
 
 ### register route
@@ -19,8 +20,8 @@ POST {{Base_url_auth}}/register
 Content-Type: application/json
 
 {    
-    "email":"email+one@email.com",
-    "password":"password+one"
+    "email":"emaill@gmail.com",    
+    "password":"passss"
 }
 ### refresh toke route
 POST {{Base_url_auth}}/refresh-token

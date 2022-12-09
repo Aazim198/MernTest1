@@ -6,13 +6,14 @@ const createErrors = require('http-errors');
 
 const AuthRoutes = require('./routes/auth.routes')
 const PORT = process.env.PORT || 3000;
-
+const {verifyAccessToken} = require('./helpers/jwthelper')
 const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
-app.get('/',async (req,res,next)=>{
+app.get('/',verifyAccessToken,async (req,res,next)=>{
+    // console.log(req.headers['authorization']);
     res.send('Hello from app');
 })
 
