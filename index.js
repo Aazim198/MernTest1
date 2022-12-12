@@ -39,3 +39,7 @@ app.use((err,req,res,next)=>{
 app.listen(PORT,()=>{
     console.log(`connected to server on port http://localhost:${PORT}`);
 });
+
+
+
+// hello from js app
