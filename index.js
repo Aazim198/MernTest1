@@ -13,7 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
 app.get('/',verifyAccessToken,async (req,res,next)=>{
-    // console.log(req.headers['authorization']);
     res.send('Hello from app');
 })
 
@@ -39,7 +38,3 @@ app.use((err,req,res,next)=>{
 app.listen(PORT,()=>{
     console.log(`connected to server on port http://localhost:${PORT}`);
 });
-
-
-
-// hello from js app
