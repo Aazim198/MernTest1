@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGO_URL,{dbName:'Mongodb_test_db'})
 .then((dd)=>{
     console.log('Connected to db');
@@ -7,7 +7,6 @@ mongoose.connect(process.env.MONGO_URL,{dbName:'Mongodb_test_db'})
 .catch((err)=>{
     console.log('Error occured', err.message);
 });
-
 
 mongoose.connection.on('connected',()=>{
     console.log('Mongoose db is connected');
