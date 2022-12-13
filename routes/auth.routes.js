@@ -2,7 +2,8 @@ const express = require('express');
 const createErrors = require('http-errors');
 const User = require('../models/user.model');
 const {authSchema} = require('../helpers/validationSchema');
-const {signAccessToken,signRefreshToken} = require('../helpers/jwthelper');
+const {signAccessToken,signRefreshToken,verifyRefreshToken} = require('../helpers/jwthelper');
+const { isResolvable } = require('@hapi/joi/lib/common');
 
 
 const router = express.Router();
@@ -50,8 +51,20 @@ router.post('/login',async(req,res,next)=>{
                 next(error);
     }
 })
-router.post('/refresh-token',async(req,res)=>{
-    res.send('TOken route');
+router.post('/refresh-token',async(req,res,next)=>{
+    try {
+        console.log(req.body);
+        const {refreshToken} = req.body;
+        if(!refreshToken){
+            throw createErrors.BadRequest()
+        }
+        const userId = await verifyRefreshToken(refreshToken);
+        const accessToken = await signAccessToken(userId);
+        const refreshTokenn = await signRefreshToken(userId);
+        res.send({accessToken: accessToken,refreshToken: refreshTokenn});
+    } catch (error) {
+        next(error);
+    }
 })
 router.delete('/logout',async(req,res)=>{
     res.send('Log out route');
