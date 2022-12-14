@@ -3,15 +3,9 @@ const morgan = require('morgan');
 require('dotenv').config();
 require('./helpers/db.connection');
 const createErrors = require('http-errors');
-// const clientRedis = require('./helpers/init_redis');
-
-
-// clientRedis.set('stack','mern')
 const AuthRoutes = require('./routes/auth.routes')
 const PORT = process.env.PORT || 3000;
-const {verifyAccessToken} = require('./helpers/jwthelper')
-
-require('./helpers/init_redis');
+const {verifyAccessToken} = require('./helpers/jwthelper');
 
 const app = express();
 app.use(morgan('dev'));

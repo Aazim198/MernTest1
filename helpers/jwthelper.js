@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const creatErrors = require('http-errors');
-
+const client_radis = require('./init_redis');
 module.exports = {
     signAccessToken : (userid)=>{
         return new Promise((resolve,reject)=>{
@@ -57,7 +57,15 @@ module.exports = {
                 if(err){
                     reject(creatErrors.InternalServerError())
                 }
-                resolve(token);
+                client_radis.set(userid,token,'EX',5*60*60,(err,val)=>{
+                    if(err){
+                        console.log(err.message)
+                        reject(creatErrors.InternalServerError());
+                    } 
+                    console.log(val);
+                    resolve(token);
+                })
+                // resolve(token);
             })
         })
     },
