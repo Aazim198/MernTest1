@@ -4,7 +4,7 @@ const User = require('../models/user.model');
 const {authSchema} = require('../helpers/validationSchema');
 const {signAccessToken,signRefreshToken,verifyRefreshToken} = require('../helpers/jwthelper');
 const { isResolvable } = require('@hapi/joi/lib/common');
-
+const client = require('../helpers/init_redis');
 
 const router = express.Router();
 
@@ -53,7 +53,6 @@ router.post('/login',async(req,res,next)=>{
 })
 router.post('/refresh-token',async(req,res,next)=>{
     try {
-        console.log(req.body);
         const {refreshToken} = req.body;
         if(!refreshToken){
             throw createErrors.BadRequest()
@@ -66,7 +65,25 @@ router.post('/refresh-token',async(req,res,next)=>{
         next(error);
     }
 })
-router.delete('/logout',async(req,res)=>{
-    res.send('Log out route');
+router.delete('/logout',async(req,res,next)=>{
+    try {
+        const {refreshToken} = req.body;
+        if(!refreshToken){
+            throw createErrors.BadRequest();
+        }
+        const uid = await verifyRefreshToken(refreshToken);
+        console.log('uid  ',uid);
+        if(!uid){
+            throw createErrors.InternalServerError();
+        }
+        const delUser = await client.DEL(uid);
+        console.log('delUser ',delUser);
+        if(!delUser){
+            throw createErrors.InternalServerError();
+        }
+        console.log('Logged out');
+    } catch (error) {
+        next(createErrors.Unauthorized()); 
+    }
 })
 module.exports = router;

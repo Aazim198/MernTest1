@@ -4,7 +4,7 @@
 
 ### Home Route
 GET {{Base_url}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWF6aW0iLCJpYXQiOjE2NzA4NDEyMzksImV4cCI6MTY3MDg0MTI1NCwiYXVkIjoiNjM5MmNlOTMyNjNiYjE5NjMyY2RhZTNkIiwiaXNzIjoiaGVscC5jb20ifQ.wEzi94C0WrlTvC3B3FU0cOP22_Muov9rMYoRC0LZUnw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWF6aW0iLCJpYXQiOjE2NzEwMTEyNTMsImV4cCI6MTY3MTAxMTU1MywiYXVkIjoiNjM5MmNlOTMyNjNiYjE5NjMyY2RhZTNkIiwiaXNzIjoiaGVscC5jb20ifQ.1Ypz8fmCy8QU2nR5v278S2OccRjNY2ONJlpdrC299Ic
 
 
 
@@ -27,6 +27,18 @@ Content-Type: application/json
 }
 ### refresh toke route
 POST {{Base_url_auth}}/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWF6aW0iLCJpYXQiOjE2NzEwMTQ3MDYsImV4cCI6MTY3MTAzMjcwNiwiYXVkIjoiNjM5MmNlOTMyNjNiYjE5NjMyY2RhZTNkIiwiaXNzIjoiaGVscC5jb20ifQ.yxqmCqybEfiBlV2a2duyvVEbZYjWUa-7QGijJOVk3ts"
+    }
+
+
 
 ### logout route
 DELETE {{Base_url_auth}}/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWF6aW0iLCJpYXQiOjE2NzEwMTQ3MjMsImV4cCI6MTY3MTAzMjcyMywiYXVkIjoiNjM5MmNlOTMyNjNiYjE5NjMyY2RhZTNkIiwiaXNzIjoiaGVscC5jb20ifQ.P_5QBx424sSQ9Hzo4TZBrvCRCIdH9T82rnGBtB8e4Dw"
+     }
